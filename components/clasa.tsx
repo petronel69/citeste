@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getClase } from "@/app/lib/data";
 import { stringToHexcolor } from "@/app/lib/utils";
 
-export function Clasa(props: {clasa: {id_clasa: number, nume: string, join_code: string, creator: string}}) {
+export function Clasa(props: {clasa: any}) {
     const { clasa } = props;
     return (
         <>
