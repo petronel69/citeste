@@ -1,3 +1,7 @@
-import Page from '@/app/(context)/page';
+export default async function Page() {
 
-export default Page;
+  return (
+    <>
+    </>
+  );
+}
