@@ -3,7 +3,7 @@ import "./globals.css";
 import { auth } from "@/auth";
 import { SignInButton, SignOutButton } from "@/components/auth";
 import { SessionProvider } from "next-auth/react"
-import { LayoutDashboard, Home, StickyNote, Layers, Flag, Calendar, LifeBuoy, Settings } from "lucide-react";
+import { NotebookText, Home, Book, LifeBuoy, Settings } from "lucide-react";
 import Sidebar, { SidebarItem } from "@/components/sidebar"
 
 export const metadata: Metadata = {
@@ -23,9 +23,9 @@ export default async function RootLayout({
         <body className={`antialiased`}>
           <div className="flex">
             <Sidebar>
-              <SidebarItem icon={<Home size={20} />} text="Acasă" alert href={"/acasa"} />
-              <SidebarItem icon={<LayoutDashboard size={20} />} text="Clase" href={"/clase"} />
-              <SidebarItem icon={<StickyNote size={20} />} text="Cărți" href={"/carti"} />
+              <SidebarItem icon={<Home size={20} />} text="Acasă" alert href={"/"} />
+              <SidebarItem icon={<NotebookText size={20} />} text="Clase" href={"/clase"} />
+              <SidebarItem icon={<Book size={20} />} text="Manuale" href={"/carti"} />
               <hr className="my-3" />
               <SidebarItem icon={<Settings size={20} />} text="Setări" href={"/setari"} />
               <SidebarItem icon={<LifeBuoy size={20} />} text="Help" />

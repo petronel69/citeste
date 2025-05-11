@@ -1,16 +1,18 @@
+//https://github.com/nimone - code modified by Andrei Dascalu
+
 'use client'
-import { ChevronFirst, ChevronLast, MoreVertical } from "lucide-react"
+import { ChevronFirst, ChevronLast, MoreVertical, LogOut } from "lucide-react"
 // import logo from "@/public/bookshare.png"
 // import profile from "../assets/profile.png"
 import { useSession } from "next-auth/react";
 import { createContext, useContext, useState } from "react"
 import Link from "next/link"
+import { usePathname } from 'next/navigation'
 
-export const SidebarContext = createContext({expanded: true, activeTab: "Acasă", setActivetab: (tab: string) => {}});
+export const SidebarContext = createContext({expanded: true});
 
 export default function Sidebar({ children } : {children: React.ReactNode}) {
     const [expanded, setExpanded] = useState(true)
-    const [activeTab, setActivetab] = useState("Dashboard");
     const { data: session } = useSession()
     return (
         <>
@@ -23,19 +25,22 @@ export default function Sidebar({ children } : {children: React.ReactNode}) {
                         </button>
                     </div>
 
-                    <SidebarContext.Provider value={{ expanded, activeTab, setActivetab }}>
+                    <SidebarContext.Provider value={{expanded}}>
 
                         <ul className="flex-1 px-3">{children}</ul>
                     </SidebarContext.Provider>
 
                     <div className="border-t flex p-3">
                         {/* <img src={profile} className="w-10 h-10 rounded-md" /> */}
-                        <div className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"} `}>
+                        <div className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-full ml-3" : "w-0"} `}>
                             <div className="leading-4">
                                 <h4 className="font-semibold">{session?.user?.name}</h4>
                                 <span className="text-xs text-gray-600">{session?.user?.email}</span>
                             </div>
-                            <MoreVertical size={20} />
+                            <Link href="/api/auth/signout" className={`flex items-center justify-center rounded-md p-2 hover:bg-gray-100 transition-all ${expanded ? "w-10 h-10" : "w-0 h-0"}`}>
+                                {/* <img src={logo} className="w-8 h-8 rounded-md" /> */}
+                            <LogOut size={20} />
+                            </Link>
                         </div>
                     </div>
                 </nav>
@@ -45,9 +50,10 @@ export default function Sidebar({ children } : {children: React.ReactNode}) {
 }
 
 export function SidebarItem({ icon, text, active = false, alert = false, href = ""}: { icon: React.ReactNode, text: string, active?: boolean, alert?: boolean, href?: string}) {
-    const { expanded, activeTab, setActivetab } = useContext(SidebarContext)
+    const { expanded } = useContext(SidebarContext)
+    const currentPath = usePathname()
     return (
-        <Link href={href} onClick={() => setActivetab(text)}><li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${(activeTab === text || active) ? "bg-gradient-to-tr from-blue-200 to-blue-100 text-blue-800" : "hover:bg-blue-50 text-gray-600"}`}>
+        <Link href={href}><li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${(href == "/" && currentPath == "/" || href && currentPath.substring(1) == href.substring(1) || active) ? "bg-gradient-to-tr from-blue-200 to-blue-100 text-blue-800" : "hover:bg-blue-50 text-gray-600"}`}>
             {icon}
             <p className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>{text}</p>
             {alert && (
@@ -65,3 +71,4 @@ export function SidebarItem({ icon, text, active = false, alert = false, href = 
         </Link>
     )
 }
+
