@@ -84,7 +84,7 @@ export default function FileList(props: {bucket: string, clasa: any[]}) {
         body: JSON.stringify({ key, bucket })
       })
       const { signedUrl } = await response.json()
-      window.open(signedUrl, '_top')
+      setTimeout(() => window.open(signedUrl, '_top'))
     } catch (error) {
       console.error('Error downloading file:', error)
       alert('Error downloading file')
