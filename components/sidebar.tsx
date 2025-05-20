@@ -9,17 +9,17 @@ import { createContext, useContext, useState } from "react"
 import Link from "next/link"
 import { usePathname } from 'next/navigation'
 
-export const SidebarContext = createContext({expanded: true});
+export const SidebarContext = createContext({expanded: false});
 
 export default function Sidebar({ children } : {children: React.ReactNode}) {
-    const [expanded, setExpanded] = useState(true)
+    const [expanded, setExpanded] = useState(false)
     const { data: session } = useSession()
     return (
         <>
             <aside className="h-screen sticky top-0">
                 <nav className="h-full flex flex-col bg-white border-r shadow-sm">
                     <div className="p-4 pb-2 flex justify-between items-center">
-                        <p className={`overflow-hidden transition-all mx-2 ${expanded ? "w-32 font-semibold text-xl text-blue-600 select-none" : "w-0 font-semibold text-xl text-blue-600 select-none"}`} >citește</p>
+                        <p className={`overflow-hidden transition-all ${expanded ? "mx-2 w-32 font-semibold text-xl text-blue-600 select-none" : "w-0 font-semibold text-xl text-blue-600 select-none"}`} >citește</p>
                         <button onClick={() => setExpanded((curr) => !curr)} className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100">
                             {expanded ? <ChevronFirst /> : <ChevronLast />}
                         </button>

@@ -23,13 +23,12 @@ export default async function RootLayout({
         <body className={`antialiased`}>
           <div className="flex">
             <Sidebar>
-              <SidebarItem icon={<Home size={20} />} text="Acasă" alert href={"/"} />
+              <SidebarItem icon={<Home size={20} />} text="Acasă" href={"/"} />
               <SidebarItem icon={<NotebookText size={20} />} text="Clase" href={"/clase"} />
               <SidebarItem icon={<Book size={20} />} text="Manuale" href={"/carti"} />
               <SidebarItem icon={<Pen size={20} />} text="Exersează" href={"/exerseaza"} />
               <hr className="my-3" />
               <SidebarItem icon={<Settings size={20} />} text="Setări" href={"/setari"} />
-              <SidebarItem icon={<LifeBuoy size={20} />} text="Help" />
             </Sidebar>
             <div className="flex-1 p-4 bg-gray-50">
               {children}
