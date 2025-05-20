@@ -53,7 +53,7 @@ export function SidebarItem({ icon, text, active = false, alert = false, href = 
     const { expanded } = useContext(SidebarContext)
     const currentPath = usePathname()
     return (
-        <Link href={href}><li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${(href == "/" && currentPath == "/" || href && currentPath.substring(1) == href.substring(1) || active) ? "bg-gradient-to-tr from-blue-200 to-blue-100 text-blue-800" : "hover:bg-blue-50 text-gray-600"}`}>
+        <Link href={href}><li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${(href == "/" && currentPath == "/" || href && href != "/" && currentPath.substring(1).includes(href.substring(1)) || active) ? "bg-gradient-to-tr from-blue-200 to-blue-100 text-blue-800" : "hover:bg-blue-50 text-gray-600"}`}>
             {icon}
             <p className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>{text}</p>
             {alert && (

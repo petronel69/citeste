@@ -52,15 +52,15 @@ export function Elev(props: {clasa: string, elev: any}) {
                 </div>
                 {elev.status == "active" && <button
                       onClick={() => kickElev(clasa, elev.id_elev)}
-                      className="text-red-500 hover:text-red-800 hover:cursor-pointer transition duration-300 font-semibold flex items-center gap-x-1"
+                      className="text-red-500 hover:text-red-800 hover:cursor-pointer transition duration-300 font-semibold flex items-center gap-x-1 bg-red-50 hover:bg-red-100 rounded-md p-2"
                     >
                       <UserRoundX className="h-5 w-5" />
-                      Scoate
+                      Elimină
                     </button>
                 }
                 {elev.status == "pending" && <button
                       onClick={() => acceptElev(clasa, elev.id_elev)}
-                      className="text-green-500 hover:text-green-800 hover:cursor-pointer transition duration-300 font-semibold flex items-center gap-x-1"
+                      className="text-green-500 hover:text-green-800 hover:cursor-pointer transition duration-300 font-semibold flex items-center gap-x-1 bg-green-50 hover:bg-green-100 rounded-md p-2"
                     >
                       <UserRoundCheck className="h-5 w-5" />
                       Acceptă

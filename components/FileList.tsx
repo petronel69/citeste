@@ -144,7 +144,7 @@ export default function FileList(props: {bucket: string, clasa: any[]}) {
                   {clasa[0]?.created_by === session?.data?.user?.id && (
                     <button
                       onClick={() => file.Key && handleDelete(file.Key)}
-                      className="text-red-500 hover:text-red-800 hover:cursor-pointer transition duration-300 font-semibold flex items-center gap-x-1"
+                      className="text-red-500 hover:text-red-800 hover:cursor-pointer transition duration-300 font-semibold flex items-center gap-x-1 bg-red-50 hover:bg-red-100 rounded-md p-2"
                     >
                       <Trash2 className="h-5 w-5" />
                       Șterge
@@ -152,7 +152,7 @@ export default function FileList(props: {bucket: string, clasa: any[]}) {
                   )}
                   <button
                     onClick={() => file.Key && handleDownload(file.Key)}
-                    className="text-blue-500 hover:text-blue-800 hover:cursor-pointer transition duration-300 font-semibold ml-auto flex items-center gap-x-3"
+                    className="text-blue-500 hover:text-blue-800 hover:cursor-pointer transition duration-300 font-semibold ml-auto flex items-center gap-x-3 bg-blue-50 hover:bg-blue-100 rounded-md p-2"
                   >
                     Descarcă 
                     <Download className="h-5 w-5" />

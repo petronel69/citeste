@@ -14,7 +14,6 @@ export async function GET(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   const { id_clasa, id_elev } = await request.json()
-  console.log(id_clasa, id_elev)
   try {
     const elevi = await kickElev(id_clasa, id_elev)
     return NextResponse.json(elevi)

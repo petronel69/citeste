@@ -6,12 +6,13 @@ import { randomBytes } from "crypto";
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { createBucket, setBucketCors } from "@/app/lib/r2";
+import { GoogleGenAI } from "@google/genai";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 export type State = {
-    status  : string | null;
-    message : string | "";
+    status  : string;
+    message : string;
 };
 
 export async function signInAction() {
@@ -28,7 +29,6 @@ export async function createClass(state: State, formData: FormData) {
         return { status: 'error', message: 'Unauthorized' }; // Return an error
     }
 
-    console.log("session", session.user.id)
     const name = formData.get('name') as string;
     const joinCode = `${randomBytes(2).toString('hex')}-${randomBytes(2).toString('hex')}`;
 
@@ -100,6 +100,31 @@ export async function requestJoinClass(state: State, formData: FormData) {
     } catch (error) {
         throw error;
     }
-    revalidatePath('/', 'layout')
-    redirect("/clase");
+}
+
+export async function generateTest(state: State, formData: FormData) {
+    const session = await auth();
+    if (!session?.user?.id) {
+        return { status: 'error', message: 'Unauthorized' };
+    }
+
+    let promptData = {materie: "", clasa: "", capitol: "", numar_intrebari: 0, dificultate: ""};
+
+    promptData.materie = formData.get('materie') as string;
+    promptData.clasa = formData.get('clasa') as string;
+    promptData.capitol = formData.get('capitol') as string;
+    promptData.numar_intrebari = parseInt(formData.get('numar_intrebari') as string);
+    promptData.dificultate = formData.get('dificultate') as string;
+    console.log(promptData);
+    if(!promptData.materie || !promptData.clasa || !promptData.capitol || !promptData.numar_intrebari || !promptData.dificultate) return { status: 'error', message: 'Te rog să completezi toate câmpurile' };
+    try {
+        const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });
+        const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: `Genereaza un test de ${promptData.materie} pentru clasa ${promptData.clasa}, capitolul ${promptData.capitol}, cu ${promptData.numar_intrebari} intrebari, fiecare cu 4 variante de raspuns. Fiecare intrebare trebuie sa aiba un singur raspuns corect. Testul trebuie sa fie de dificultate ${promptData.dificultate}. Foloseste un limbaj simplu si clar, potrivit pentru elevii de clasa ${promptData.clasa}. Testul trebuie sa fie in limba romana. Te rog sa imi spui doar testul, fara alte explicatii sau introduceri, in urmatorul format JSON: \`[{"intrebare": "?", "raspunsuri": ["", "", "", ""], "raspuns_corect": 0}]\`, raspunzand doar cu obiectul JSON.`,
+        });
+        return { status: 'success', message: JSON.parse(response.text?.replace(/```json/g, "").replace(/```/g, "") || "")};
+    } catch (error) {
+        return { status: 'error', message: 'Testul nu a putut fi generat' };
+    }
 }

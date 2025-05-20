@@ -30,7 +30,6 @@ export default async function Page(props : { params: Promise<{ id: string }> }) 
             {clasa[0]?.created_by === session?.user?.id && <FileUploader bucket={id}/> }
             <h2 className="text-2xl font-semibold mb-4 text-gray-800 mt-6">Lecturi</h2>
             <FileList bucket={id} clasa={clasa} />
-            {/* <pre>{JSON.stringify(clasa, null, 2)}</pre> */}
         </main>
     );
 }
