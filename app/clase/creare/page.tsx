@@ -6,7 +6,7 @@ import { createClass, State } from '@/app/lib/actions';
 import { useActionState } from 'react';
 
 export default function Page() {
-  const initialState: State = { status: null, message: "" };
+  const initialState: State = { status: "", message: "" };
   const [state, formAction] = useActionState(createClass, initialState);
   return (
     <div>

@@ -6,7 +6,7 @@ import { requestJoinClass, State } from '@/app/lib/actions';
 import { useActionState } from 'react';
 
 export default function Page() {
-  const initialState: State = { status: null, message: "" };
+  const initialState: State = { status: "", message: "" };
   const [state, formAction] = useActionState(requestJoinClass, initialState);
   let [error, setError] = useState<string | null>(null);
   useEffect(() => {

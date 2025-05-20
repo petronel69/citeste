@@ -7,7 +7,7 @@ import { LoaderCircle } from "lucide-react";
 
 export default function Page() {
   const session = useSession();
-  const initialState: State = { status: null, message: "" };
+  const initialState: State = { status: "", message: "" };
   const [state, formAction] = useActionState(updateName, initialState);
   let [name, setName] = useState(session?.data?.user?.name || "");
   let [isPending, startTransition] = useTransition();
@@ -19,7 +19,7 @@ export default function Page() {
               name: state.message
           }
       })
-      state.status = null;
+      state.status = "";
   }
   }, [state.status]);
   const onSubmit = async (formData: FormData) => {
