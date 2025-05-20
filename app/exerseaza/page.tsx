@@ -1,20 +1,30 @@
 'use client';
 import Test from "@/components/Test";
 import { generateTest, State } from "@/app/lib/actions";
-import { useActionState, useState } from "react";
+import { useActionState, useState, useTransition } from "react";
+import { LoaderCircle } from "lucide-react";
 
 export default function Page() {
   let data: [{intrebare: string, raspunsuri: string[], raspuns_corect: number}] | null = null;
   let [promptData, setPromptData] = useState({materie: "", clasa: "", capitol: "", numar_intrebari: 5, dificultate: ""});
   const initialState: State = { status: "", message: "" };
   const [state, formAction] = useActionState(generateTest, initialState);
+
+  let [isPending, startTransition] = useTransition();
+  const onSubmit = async (formData: FormData) => {
+      startTransition(() => {
+          formAction(formData);
+      });
+  }
+
   if(state.status === "success")
     return(<Test test_data={state.message} />);
+
   return (
     <>
     <h1>Exerseaza</h1>
     {state.status === "error" && <p className="text-red-600">{state.message}</p>}
-    <form action={formAction} className="space-y-4 bg-gray-50 p-6 rounded-md shadow-md">
+    <form action={onSubmit} className="space-y-4 bg-gray-50 p-6 rounded-md shadow-md">
       <div className="flex flex-col">
         <label className="font-semibold mb-1">Materie:</label>
         <select 
@@ -64,7 +74,8 @@ export default function Page() {
         <input 
           name="numar_intrebari" 
           type="number" 
-          min="1" 
+          min="1"
+          max="20" 
           value={promptData.numar_intrebari} 
           onChange={(e) => setPromptData({...promptData, numar_intrebari: parseInt(e.target.value)})} 
           className="p-2 border border-gray-300 rounded-md"
@@ -86,7 +97,7 @@ export default function Page() {
         </select>
       </div>
       <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-md font-semibold hover:bg-blue-400 transition duration-300 hover:cursor-pointer">
-        Generează testul
+        {isPending ? <LoaderCircle className="mx-auto animate-spin"/> : "Generează testul"}
       </button>
     </form>
     </>

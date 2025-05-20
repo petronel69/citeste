@@ -66,7 +66,7 @@ export default function Test(props: {test_data: {intrebare: string, raspunsuri: 
                 </div>
             ))}
             </div>
-             {!submitted && <p className="text-sm text-gray-500 mx-auto mt-2">Te rog raspunde la toate intrebarile si apasa butonul de mai jos pentru a trimite raspunsurile.</p>}
+             {!submitted && <p className="text-sm text-gray-500 mx-auto mt-2">Atât întrebările cât și răspunsurile au fost generate cu ajutorul inteligentei artificiale - deși se întâmplă rar, acestea pot fi greșite</p>}
              {!submitted && <button className={`mt-4 p-2 text-white rounded-md shadow-md bg-blue-500 hover:cursor-pointer hover:bg-blue-400 xl:w-1/5 lg:w-1/4 md:w-1/2 w-1/1 mx-auto text-center`} onClick={() => {handleSubmit();}}>Trimite raspunsurile</button>}
              {submitted && <button onClick={() => window.location.reload()} className="mt-4 p-2 text-white rounded-md shadow-md bg-blue-500 hover:cursor-pointer hover:bg-blue-400 xl:w-1/5 lg:w-1/4 md:w-1/2 w-1/1 mx-auto text-center">Genereaza alt test</button>}
              {/* foloseste url params sa salvezi stateu formului de generare a testului */}
