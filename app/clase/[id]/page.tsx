@@ -3,8 +3,7 @@ import { stringToHexcolor } from "@/app/lib/utils";
 import FileUploader from "@/components/FileUploader";
 import FileList from "@/components/FileList";
 import { auth } from "@/auth";
-import { Suspense } from "react";
-import { ListaElevi, ListaEleviSkeleton } from "@/components/elevList";
+import { ListaElevi } from "@/components/elevList";
 
 export default async function Page(props : { params: Promise<{ id: string }> }) {
     const params = await props.params;

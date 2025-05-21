@@ -87,3 +87,21 @@ export async function acceptElev(id_clasa: string, id_elev: string) {
     throw new Error('Failed to kick elev (' + id_elev + ') from clasa (' + id_clasa + ').');
   }
 }
+
+export async function getUserStatusForClasa(id_clasa: string) {
+  if(!id_clasa) return null;
+  try {
+    const session = await auth();
+    if(!session?.user?.id) return null;
+
+    const data = await sql`
+      SELECT elevi.id_elev, clase.created_by FROM clase LEFT OUTER JOIN elevi ON elevi.id_clasa = clase.id_clasa AND elevi.id_elev = ${session?.user?.id} WHERE clase.id_clasa = ${id_clasa};
+    `;
+    if(data[0]?.created_by == session?.user?.id) return "profesor"
+    if(data[0]?.id_elev == session?.user?.id) return "elev"
+    return null;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch user status for clasa (' + id_clasa + ').');
+  }
+}

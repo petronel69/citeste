@@ -30,7 +30,7 @@ export default function Sidebar({ children } : {children: React.ReactNode}) {
                         <ul className="flex-1 px-3">{children}</ul>
                     </SidebarContext.Provider>
 
-                    <div className="border-t flex p-3">
+                    <div className={`${expanded && "border-t"} flex p-3`}>
                         {/* <img src={profile} className="w-10 h-10 rounded-md" /> */}
                         <div className={`flex justify-between items-center overflow-hidden transition-all ${expanded ? "w-full ml-3" : "w-0"} `}>
                             <div className="leading-4">
@@ -38,8 +38,7 @@ export default function Sidebar({ children } : {children: React.ReactNode}) {
                                 <span className="text-xs text-gray-600">{session?.user?.email}</span>
                             </div>
                             <Link href="/api/auth/signout" className={`flex items-center justify-center rounded-md p-2 hover:bg-gray-100 transition-all ${expanded ? "w-10 h-10" : "w-0 h-0"}`}>
-                                {/* <img src={logo} className="w-8 h-8 rounded-md" /> */}
-                            <LogOut size={20} />
+                                <LogOut size={20} />
                             </Link>
                         </div>
                     </div>

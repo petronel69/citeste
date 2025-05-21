@@ -1,24 +1,34 @@
 'use client';
 import Test from "@/components/Test";
 import { generateTest, State } from "@/app/lib/actions";
-import { useActionState, useState, useTransition } from "react";
+import { useActionState, useState, useTransition, useEffect } from "react";
 import { LoaderCircle } from "lucide-react";
+import { useSearchParams, useRouter } from 'next/navigation'
 
 export default function Page() {
   let data: [{intrebare: string, raspunsuri: string[], raspuns_corect: number}] | null = null;
-  let [promptData, setPromptData] = useState({materie: "", clasa: "", capitol: "", numar_intrebari: 5, dificultate: ""});
+  const searchParams = useSearchParams()
+  let [promptData, setPromptData] = useState({materie: searchParams.get("materie") || "", clasa: searchParams.get("clasa") || "",  capitol: searchParams.get("capitol") || "", numar_intrebari: parseInt(searchParams.get("numar_intrebari") || "5"), dificultate: searchParams.get("dificultate") || ""});
   const initialState: State = { status: "", message: "" };
   const [state, formAction] = useActionState(generateTest, initialState);
-
+  const router = useRouter();
   let [isPending, startTransition] = useTransition();
   const onSubmit = async (formData: FormData) => {
       startTransition(() => {
           formAction(formData);
       });
   }
+  
+  useEffect(() => {
+    if(state.status === "success") {
+      router.push(encodeURI(`/exerseaza?materie=${promptData.materie}&clasa=${promptData.clasa}&capitol=${promptData.capitol}&numar_intrebari=${promptData.numar_intrebari}&dificultate=${promptData.dificultate}`));
+    }
+  }, [state]);
 
   if(state.status === "success")
     return(<Test test_data={state.message} />);
+  
+    
 
   return (
     <>
@@ -34,11 +44,12 @@ export default function Page() {
           className="p-2 border border-gray-300 rounded-md"
         >
           <option value="">Alege o materie</option>
-          <option value="matematica">Matematica</option>
-          <option value="fizica">Fizica</option>
+          <option value="engleza">Limba engleză</option>
+          <option value="matematica">Matematică</option>
+          <option value="fizica">Fizică</option>
           <option value="biologie">Biologie</option>
           <option value="chimie">Chimie</option>
-          <option value="informatica">Informatica</option>
+          <option value="informatica">Informatică</option>
         </select>
       </div>
       <div className="flex flex-col">
@@ -50,12 +61,12 @@ export default function Page() {
           className="p-2 border border-gray-300 rounded-md"
         >
           <option value="">Alege o clasa</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
+          <option value="a 7-a">a 7-a</option>
+          <option value="a 8-a">a 8-a</option>
+          <option value="a 9-a">a 9-a</option>
+          <option value="a 10-a">a 10-a</option>
+          <option value="a 11-a">a 11-a</option>
+          <option value="a 12-a">a 12-a</option>
         </select>
       </div>
       <div className="flex flex-col">
@@ -96,7 +107,7 @@ export default function Page() {
           <option value="foarte grea">Foarte grea</option>
         </select>
       </div>
-      <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-md font-semibold hover:bg-blue-400 transition duration-300 hover:cursor-pointer">
+      <button type="submit" disabled={isPending} className="w-full bg-blue-400 hover:bg-blue-300 hover:text-blue-600 hover:cursor-pointer text-gray-100 rounded-md shadow-sm border border-gray-200 mb-4 transition-all duration-200 ease-in-out px-4 py-2 disabled:cursor-not-allowed">
         {isPending ? <LoaderCircle className="mx-auto animate-spin"/> : "Generează testul"}
       </button>
     </form>
