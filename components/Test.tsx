@@ -2,12 +2,9 @@
 
 import { useState } from "react";
 
-import { Check, X, GraduationCap } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import { Check, GraduationCap, X } from "lucide-react";
 
 export default function Test(props: {test_data: {intrebare: string, raspunsuri: string[], raspuns_corect: number, explicatie: string}[]}) {
-    const router = useRouter();
     const { test_data } = props;
     const [answers, setAnswers] = useState<number[]>([]);
     const [answerStatus, setAnswerStatus] = useState<string[]>([]);

@@ -1,10 +1,10 @@
 'use server'
-import postgres from 'postgres';
 import { auth } from "@/auth";
-import { get } from 'http';
+import postgres from 'postgres';
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 export async function getClase() {
+  await new Promise(r => setTimeout(r, 10000));
   try {
     const session = await auth();
     if(!session?.user?.id) return null;

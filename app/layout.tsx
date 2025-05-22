@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
-import "./globals.css";
 import { auth } from "@/auth";
-import { SignInButton, SignOutButton } from "@/components/auth";
-import { SessionProvider } from "next-auth/react"
-import { NotebookText, Home, Book, LifeBuoy, Settings, Pen } from "lucide-react";
-import Sidebar, { SidebarItem } from "@/components/sidebar"
+import Sidebar, { SidebarItem } from "@/components/sidebar";
+import { Book, Home, NotebookText, Pen, Settings } from "lucide-react";
+import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "citeste",

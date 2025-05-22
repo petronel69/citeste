@@ -1,8 +1,7 @@
-import Link from 'next/link'
 import { ListaClase, ListaClaseSkeleton } from "@/components/clasa";
-import { Suspense} from 'react'
+import Link from 'next/link';
+import { Suspense } from 'react';
 
-import { PrimaryButton } from "@/components/buttons";
 
 export default function Page() {
   return (

@@ -25,14 +25,12 @@ SOFTWARE.
 
 'use client'
 
-import React, {
-  useState,
-  useEffect,
+import {
   ChangeEvent,
   FormEvent,
-  useRef
+  useRef,
+  useState
 } from 'react'
-import { FileObject } from '@/app/lib/r2'
 
 export default function FileUploader(props: {bucket: string}) {
   const { bucket } = props

@@ -1,11 +1,11 @@
 //https://github.com/nimone - code modified by Andrei Dascalu
 
 'use client'
-import { ChevronFirst, ChevronLast, MoreVertical, LogOut } from "lucide-react"
+import { ChevronFirst, ChevronLast, LogOut } from "lucide-react";
 import { useSession } from "next-auth/react";
-import { createContext, useContext, useState } from "react"
-import Link from "next/link"
-import { usePathname } from 'next/navigation'
+import Link from "next/link";
+import { usePathname } from 'next/navigation';
+import { createContext, useContext, useState } from "react";
 
 export const SidebarContext = createContext({expanded: false});
 

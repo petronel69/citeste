@@ -1,6 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server'
 import { getSignedUrlForUpload } from '@/app/lib/r2'
-import { error } from 'console'
+import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
   const { fileName, fileType, bucket } = await request.json()

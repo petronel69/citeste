@@ -25,17 +25,13 @@ SOFTWARE.
 
 'use client'
 
-import React, {
-  useState,
-  useEffect,
-  ChangeEvent,
-  FormEvent,
-  useRef
-} from 'react'
 import { FileObject } from '@/app/lib/r2'
-import { stringToHexcolor } from '@/app/lib/utils'
+import { Download, Trash2 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
-import { Trash2, Download } from 'lucide-react'
+import {
+  useEffect,
+  useState
+} from 'react'
 
 export function FileListSkeleton() {
   return (

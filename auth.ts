@@ -1,11 +1,8 @@
-import NextAuth from "next-auth"
-import { SupabaseAdapter } from "@auth/supabase-adapter"
-import Resend from "next-auth/providers/resend"
-import CredentialsProvider from "next-auth/providers/credentials";
+import { SupabaseAdapter } from "@auth/supabase-adapter";
+import NextAuth from "next-auth";
+import Resend from "next-auth/providers/resend";
 
 import postgres from 'postgres';
-import { redirect } from "next/navigation";
-import { NextResponse } from "next/server";
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
  
