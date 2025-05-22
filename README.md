@@ -3,13 +3,12 @@ InfoEducatie
 
 1. Structuri de date folosite pentru înțelegerea website-ului (folosite în continuare cu scris ***italic si bold***)  
      
-   ***Clasa*** {  
+***Clasa*** {  
    	uuid		id\_clasa
-
-		uuid		created\_by	(legat de ***User.id***)  
-		timestamptz	created\_at  
-		text		nume  
-		text		join\_code  
+	uuid		created\_by	(legat de ***User.id***)  
+	timestamptz	created\_at  
+	text		nume  
+	text		join\_code  
 }
 
 ***Elev*** {  
