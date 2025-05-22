@@ -15,14 +15,6 @@ export type State = {
     message : string;
 };
 
-export async function signInAction() {
-    await signIn();
-}
-
-export async function signOutAction() {
-    await signOut();
-}
-
 export async function createClass(state: State, formData: FormData) {
     const session = await auth();
     if (!session?.user?.id) {
@@ -38,9 +30,6 @@ export async function createClass(state: State, formData: FormData) {
             RETURNING id_clasa
         `;
         const id_clasa = result[0].id_clasa;
-        await sql`
-            INSERT INTO elevi (id_elev, id_clasa) VALUES (${session.user.id}, ${id_clasa})
-        `;
         await createBucket(id_clasa);
         await setBucketCors(id_clasa);
     } catch (error) {
