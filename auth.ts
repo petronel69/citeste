@@ -10,6 +10,9 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
  
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  theme: {
+    colorScheme: "light"
+  },
   providers: [
     Resend({
       server: process.env.EMAIL_SERVER,
