@@ -5,7 +5,6 @@ import { getUserStatusForClasa } from '@/app/lib/data'
 export async function GET(request: NextRequest) {
   const status = await getUserStatusForClasa(request.url.split('?')[1])
   if(!status) return NextResponse.json({ error: 'Clasa not found' }, { status: 400 })
-    console.log(status)
   const bucket = request.url.split('?')[1]
   try {
     const files = await listFiles(bucket)

@@ -25,7 +25,7 @@ export default async function RootLayout({
             <Sidebar>
               <SidebarItem icon={<Home size={20} />} text="Acasă" href={"/"} />
               <SidebarItem icon={<NotebookText size={20} />} text="Clase" href={"/clase"} />
-              <SidebarItem icon={<Pen size={20} />} text="Exersează" href={"/exerseaza"} />
+              <SidebarItem icon={<Pen size={20} />} text="Exersează" ai href={"/exerseaza"} />
               <SidebarItem icon={<Book size={20} />} text="Manuale" href={"https://www.manuale.edu.ro/"} />
               <hr className="my-3" />
               <SidebarItem icon={<Settings size={20} />} text="Setări" href={"/setari"} />

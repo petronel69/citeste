@@ -26,7 +26,7 @@ export async function signOutAction() {
 export async function createClass(state: State, formData: FormData) {
     const session = await auth();
     if (!session?.user?.id) {
-        return { status: 'error', message: 'Unauthorized' }; // Return an error
+        return { status: 'error', message: 'Unauthorized' };
     }
 
     const name = formData.get('name') as string;
@@ -65,7 +65,6 @@ export async function updateName(state: State, formData: FormData) {
     } catch (error) {
         throw error;
     }
-    // await new Promise(resolve => setTimeout(resolve, 1000));
     revalidatePath('/', 'layout')
     return { status: 'success', message: name };
 }
@@ -115,7 +114,6 @@ export async function generateTest(state: State, formData: FormData) {
     promptData.capitol = formData.get('capitol') as string;
     promptData.numar_intrebari = parseInt(formData.get('numar_intrebari') as string);
     promptData.dificultate = formData.get('dificultate') as string;
-    console.log(promptData);
     if(!promptData.materie || !promptData.clasa || !promptData.capitol || !promptData.numar_intrebari || !promptData.dificultate) return { status: 'error', message: 'Te rog să completezi toate câmpurile' };
     try {
         const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_GENAI_API_KEY });

@@ -2,8 +2,6 @@
 
 'use client'
 import { ChevronFirst, ChevronLast, MoreVertical, LogOut } from "lucide-react"
-// import logo from "@/public/bookshare.png"
-// import profile from "../assets/profile.png"
 import { useSession } from "next-auth/react";
 import { createContext, useContext, useState } from "react"
 import Link from "next/link"
@@ -48,13 +46,16 @@ export default function Sidebar({ children } : {children: React.ReactNode}) {
     )
 }
 
-export function SidebarItem({ icon, text, active = false, alert = false, href = ""}: { icon: React.ReactNode, text: string, active?: boolean, alert?: boolean, href?: string}) {
+export function SidebarItem({ icon, text, active = false, alert = false, href = "", ai = false}: { icon: React.ReactNode, text: string, active?: boolean, alert?: boolean, href?: string, ai?: boolean}) {
     const { expanded } = useContext(SidebarContext)
     const currentPath = usePathname()
     return (
         <Link href={href}><li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${(href == "/" && currentPath == "/" || href && href != "/" && currentPath.substring(1).includes(href.substring(1)) || active) ? "bg-gradient-to-tr from-blue-200 to-blue-100 text-blue-800" : "hover:bg-blue-50 text-gray-600"}`}>
             {icon}
             <p className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>{text}</p>
+            {ai && (
+                <p className={`overflow-hidden transition-all text-center rounded-md ${expanded ? "border-blue-400 border border-2 text-sm px-1" : "w-0"} h-6`}>AI</p>
+            )}
             {alert && (
                 <div className={`absolute right-2 w-2 h-2 rounded bg-blue-400 ${expanded ? "" : "top-2"}`}>
 

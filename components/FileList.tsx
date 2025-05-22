@@ -106,7 +106,6 @@ export default function FileList(props: {bucket: string, clasa: any[]}) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ key, bucket })
       })
-      // alert('File deleted successfully!')
       fetchFiles(bucket)
     } catch (error) {
       console.error('Error deleting file:', error)
